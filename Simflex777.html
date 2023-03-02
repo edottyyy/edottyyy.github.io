@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<head>
+  <title>Anna Dowlin</title>
+  <style>
+    body {
+      text-align: center;
+      background: url("https://static.wikia.nocookie.net/marvel_dc/images/2/2d/DC%27s_Year_of_the_Villain_Special_Vol_1_1_Textless_Batman_Who_Laughs_Variant.jpg/revision/latest?cb=20190518135948");
+      background-size: cover;
+      background-position: center;
+      color: white;
+      font-family: helvetica;
+    }
+    p {
+      font-size: 22px;
+    }
+    input {
+      border: 0;
+      padding: 10px;
+      font-size: 18px;
+    }
+    input[type="submit"] {
+      background: red;
+      color: white;
+    }
+    img {
+      width: 250px;
+      border-radius: 50px;
+      }
+  </style>
+</head>
+<body>
+  <img src="https://cdna.artstation.com/p/assets/images/images/018/434/106/large/dope-pope-zbatmanwholaughs-by-dp-72-2.jpg?1559346372">
+  <p>Hi! I'm Dermacus Lebron The Third Junior, a NYC-based marketer. Say hello to my channel and don't forget to drop a like on the video, subscribe to my youtube Love y'all man don't forget to drop a like man PEACE!</p>
+  <input id="Name" type="name" placeholder="Your name">
+  <input id="Email" type="email" placeholder="Your email">
+  <input id="submit" type="submit">
+  
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+	import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAsv9GJFwka-Cv9zNPlUnmzPbJaVx2_e1E",
+      authDomain: "cocomelon-project.firebaseapp.com",
+      databaseURL: "https://cocomelon-project-default-rtdb.firebaseio.com",
+      projectId: "cocomelon-project",
+      storageBucket: "cocomelon-project.appspot.com",
+      messagingSenderId: "180074458332",
+      appId: "1:180074458332:web:86b10662c1f687cd5d9819"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+	const db = getDatabase(app);
+  const Name = document.querySelector("#Name") 
+    const Email = document.querySelector("#Email")
+    document.querySelector('#submit').addEventListener('click', Submit)
+  
+    function Submit() {
+  	  const timestamp = buildTimestamp()
+	  
+  	  set(ref(db, timestamp), {
+  		  Name: Name.value,
+  	      email: Email.value,
+  	  });
+
+  	  Name.value = ""
+  	  Email.value = ""
+  	}
+  function buildTimestamp() {
+  	  const now = new Date();
+  	  let timestamp = now.getFullYear().toString() + "/";
+  	  //const month = now.toLocaleString('default', { month: 'long' });
+
+  	  let month = now.getMonth()+1   //add 1 because Javascript uses 0 for January
+  	  month = month.toString()
+  	  month = addLeadingZero(month)
+  	  timestamp += month + "/"; 
+
+  	  let date = now.getDate().toString()
+  	  date = addLeadingZero(date)
+  	  timestamp += date + "/";
+
+  	  let hours = now.getHours().toString()
+  	  hours = addLeadingZero(hours)
+  	  timestamp += hours + ":";
+
+  	  let minutes = now.getMinutes().toString()
+  	  minutes = addLeadingZero(minutes)
+  	  timestamp += minutes + ":";
+
+  	  let seconds = now.getSeconds().toString()
+  	  seconds = addLeadingZero(seconds)
+  	  timestamp += seconds;
+  
+  	  return timestamp
+  	}
+	
+  	function addLeadingZero(units) {
+  		if (units.length < 2) {
+  			units = "0" + units
+  		}
+  		return units
+  	}
+	
+  </script>
